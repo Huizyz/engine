@@ -29,7 +29,7 @@ Matrix translate(const Vector3D &vector);
 Matrix Transformation(double scale, double ro_X, double ro_Y, double ro_Z, const Vector3D& V3D);
 void applyTransformation(Figure &fig, const Matrix &m);
 
-Matrix eyePointTrans(const Vector3D &eyepoint);
+Matrix eyePointTrans(Vector3D &eyepoint);
 
 std::tuple<double, double, double>toPolar(Vector3D &point);
 
