@@ -85,7 +85,7 @@ Lines2D drawLSystem(std::string filenaam, const Color &color) {
 
 img::EasyImage generate_image(const ini::Configuration &configuration)
 {
-    img::EasyImage image;
+    // img::EasyImage image;
     string type = configuration["General"]["type"].as_string_or_die();
     int size = configuration["General"]["size"].as_int_or_die();
     std::vector<double> backGroundInfo = configuration["General"]["backgroundcolor"].as_double_tuple_or_die();

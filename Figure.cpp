@@ -139,7 +139,6 @@ void applyTransformation(Figure &fig, const Matrix &m){
     }
 }
 
-
 std::tuple<double, double, double>toPolar(Vector3D &point){
     double r = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2));
     double theta = atan2(point.y, point.x);
@@ -187,10 +186,7 @@ Lines2D doProjection(const Figures3D &figures){
             for (int i = 0; i < face.point_indexes.size(); ++i) {
                 Point2D p1 = doProjection(figure.points[face.point_indexes[i]],1);
                 Point2D p2 = doProjection(figure.points[face.point_indexes[(i+1)%face.point_indexes.size()]],1);
-                auto line = Line2D(p1,p2,figure.color);
-                line.z1 = figure.points[face.point_indexes[i]].z;
-                line.z2 = figure.points[face.point_indexes[(i+1)%face.point_indexes.size()]].z;
-                lines.emplace_back(line);
+                lines.emplace_back(Line2D(p1,p2,figure.color));
 
             }
         }
