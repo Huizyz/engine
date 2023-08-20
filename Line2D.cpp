@@ -1,3 +1,4 @@
+#include <limits>
 #include "Line2D.h"
 #include "easy_image.h"
 #include "cmath"
@@ -11,17 +12,37 @@ img::EasyImage draw2DLines(Lines2D& lines, const int size, Color &color) {
     backGroundColor.red = lround(color.red * 255);
 
     // Determine the range of x and y coordinates
-    double xmin = lines.front().p1.x;
-    double xmax = lines.front().p1.x;
-    double ymin = lines.front().p1.y;
-    double ymax = lines.front().p1.y;
+    double xmin = numeric_limits<double>::infinity();
+    double xmax = xmin * -1;
+    double ymin = numeric_limits<double>::infinity();
+    double ymax = ymin * -1;
 
     // iterate over the list of lines to update the variables
     for (Line2D& line : lines) {
-        xmin = std::min(xmin, std::min(line.p1.x, line.p2.x));
-        xmax = std::max(xmax, std::max(line.p1.x, line.p2.x));
-        ymin = std::min(ymin, std::min(line.p1.y, line.p2.y));
-        ymax = std::max(ymax, std::max(line.p1.y, line.p2.y));
+        if (line.p1.x < xmin) {
+            xmin = line.p1.x;
+        }
+        if (line.p1.x > xmax) {
+            xmax = line.p1.x;
+        }
+        if (line.p2.x < xmin) {
+            xmin = line.p2.x;
+        }
+        if (line.p2.x > xmax) {
+            xmax = line.p2.x;
+        }
+        if (line.p1.y < ymin) {
+            ymin = line.p1.x;
+        }
+        if (line.p1.y > ymax) {
+            ymax = line.p1.y;
+        }
+        if (line.p2.y < ymin) {
+            ymin = line.p2.y;
+        }
+        if (line.p2.y > ymax) {
+            ymax = line.p2.y;
+        }
     }
 
     // calculate the size of the image
@@ -31,7 +52,7 @@ img::EasyImage draw2DLines(Lines2D& lines, const int size, Color &color) {
     double image_x = size*(x_range / max_range);
     double image_y = size*(y_range / max_range);
 
-    img::EasyImage image(lround(image_x),lround(image_y), backGroundColor);
+    img::EasyImage image(lround(image_x) + 1,lround(image_y) + 1, backGroundColor);
 
     // calculate the scale factor d
     double d = 0.95 *(image_x/x_range);
@@ -43,7 +64,7 @@ img::EasyImage draw2DLines(Lines2D& lines, const int size, Color &color) {
         line.p1.y *= d;
         line.p2.x *= d;
         line.p2.y *= d;
-        copy_line.push_back(line);
+        copy_line.emplace_back(line);
     }
 
     // Move the line drawing

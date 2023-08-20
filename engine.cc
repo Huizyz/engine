@@ -138,6 +138,7 @@ img::EasyImage generate_image(const ini::Configuration &configuration)
                     std::vector<double> pointsInfo = configuration[figureName][pointName].as_double_tuple_or_die();
                     Vector3D point = Vector3D::point(pointsInfo[0], pointsInfo[1], pointsInfo[2]);
                     figure.points.push_back(point);
+                    //cout << "Point" + to_string(j) + ": " << "(" + to_string(pointsInfo[0]) + "," + to_string(pointsInfo[1]) + "," + to_string(pointsInfo[1]) + ")" << endl;
                 }
                 //make all the figure lines
                 for (int h = 0; h < nrLines; h++) {
@@ -145,6 +146,7 @@ img::EasyImage generate_image(const ini::Configuration &configuration)
                     std::vector<int> linesInfo = configuration[figureName][lineName].as_int_tuple_or_die();
                     Face pointIndex = Face(linesInfo);
                     figure.faces.push_back(pointIndex);
+                    //cout << "Line" + to_string(h) + ": " << "(" + to_string(linesInfo[0]) << "," + to_string(linesInfo[1]) + ")" << endl;
                 }
                 // transform figure + push in list of all figures
             }
