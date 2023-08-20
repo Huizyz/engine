@@ -174,8 +174,8 @@ Matrix eyePointTrans(Vector3D &eyepoint){
 }
 
 Point2D doProjection(Vector3D &point, const double d){
-    double xACC = (d * point.x) / -point.z;
-    double yACC = (d * point.y) / -point.z;
+    double xACC = (d * point.x) / (-point.z);
+    double yACC = (d * point.y) / (-point.z);
     return Point2D(xACC,yACC);
 }
 
